@@ -1,15 +1,19 @@
 package com.mingzi.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mingzi.myapplication.asynctask.MyAsyncTask;
+import com.mingzi.myapplication.gesture.AddGestureActivity;
+import com.mingzi.myapplication.gesture.GestureActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,14 +23,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView mText;
     private Button mProgressBtn;
     private ProgressBar mProgressBar;
+    private Button mGestureBtn;
+    private Button mAddgestureBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         mTextView = (TextView) findViewById(R.id.mtextview);
         mText = (TextView) findViewById(R.id.mtextview_1);
         mProgressBar = (ProgressBar) findViewById(R.id.mProgressBar);
         mProgressBtn = (Button) findViewById(R.id.mProgressBtn);
+        mAddgestureBtn = (Button) findViewById(R.id.add_gesture_btn);
         mProgressBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +63,21 @@ public class MainActivity extends AppCompatActivity {
                 }).start();
             }
         });
+        mGestureBtn = (Button) findViewById(R.id.gestureBtn);
+        mGestureBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,GestureActivity.class));
+            }
+        });
+        mAddgestureBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddGestureActivity.class));
+            }
+        });
     }
+
    Handler mHandler = new Handler(){
        @Override
         public void handleMessage(Message msg){
