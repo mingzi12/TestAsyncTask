@@ -26,6 +26,11 @@
             android:name=".gesture.AddGestureActivity"
             android:label="@string/title_activity_add_gesture"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service android:name=".service.MyServive">
+            <intent-filter>
+                <action android:name="com.mingzi.myapplication.service.Myservice"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

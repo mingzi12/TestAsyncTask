@@ -1,23 +1,31 @@
 package com.mingzi.myapplication;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mingzi.myapplication.asynctask.MyAsyncTask;
 import com.mingzi.myapplication.gesture.AddGestureActivity;
 import com.mingzi.myapplication.gesture.GestureActivity;
+import com.mingzi.myapplication.service.MyServive;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int UPDATE_TXT=1;
+    private static final String SERVICE_TAG = "CONNECTION";
     private TextView mTextView;
     private Button mButton;
     private TextView mText;
@@ -25,12 +33,34 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private Button mGestureBtn;
     private Button mAddgestureBtn;
+    private boolean isExit = false;
+    private Button startBtn;
+    private Button stopBtn;
+    private Button bindBtn;
+    private Button unBindBtn;
+    private Button statusBtn;
+    private MyServive.MyBinder mBinder;
+    private ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+          System.out.println("onServiceConnected()方法被调用");
+            mBinder = (MyServive.MyBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            System.out.println("onServiceDisconnected()方法被调用");
+        }
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        initServiceBtn();
+        initBindServiceBtn();
         mTextView = (TextView) findViewById(R.id.mtextview);
         mText = (TextView) findViewById(R.id.mtextview_1);
         mProgressBar = (ProgressBar) findViewById(R.id.mProgressBar);
@@ -78,14 +108,81 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-   Handler mHandler = new Handler(){
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+        if (!isExit){
+            isExit = true;
+            Toast.makeText(MainActivity.this,"再按一次退出应用",Toast.LENGTH_SHORT).show();
+            mHandler.sendEmptyMessageDelayed(0,2000);
+        }
+        else {
+            android.os.Process.killProcess(android.os.Process.myPid());
+            //System.exit(0);
+        }
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    Handler mHandler = new Handler(){
        @Override
         public void handleMessage(Message msg){
            switch (msg.what){
                case UPDATE_TXT:
                    mTextView.setText("通过Handler来更新UI组件");
+                   break;
+               case 0:
+                   super.handleMessage(msg);
+                   isExit = false;
+                   break;
            }
        }
    };
+    public void initServiceBtn(){
+         final Intent mServiceIntent = new Intent();
+        mServiceIntent.setAction("com.mingzi.myapplication.service.Myservice");
+        startBtn = (Button) findViewById(R.id.start_service_btn);
+        stopBtn = (Button) findViewById(R.id.stop_service_btn);
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startService(mServiceIntent);
+            }
+        });
+        stopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopService(mServiceIntent);
+            }
+        });
+    }
+    public void initBindServiceBtn(){
+        bindBtn = (Button) findViewById(R.id.bind_service_btn);
+        unBindBtn = (Button) findViewById(R.id.unbind_service_btn);
+        statusBtn = (Button) findViewById(R.id.status_btn);
+        bindBtn.setOnClickListener(this);
+        unBindBtn.setOnClickListener(this);
+        statusBtn.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent mServiceIntent = new Intent();
+        mServiceIntent.setAction("com.mingzi.myapplication.service.Myservice");
+        switch (v.getId()){
+            case R.id.bind_service_btn:
+                bindService(mServiceIntent,conn, Context.BIND_AUTO_CREATE);
+                break;
+            case R.id.unbind_service_btn:
+                unbindService(conn);
+                break;
+            case R.id.status_btn:
+                System.out.println(mBinder.getCount());
+                break;
+            default:
+                break;
+        }
+    }
 }

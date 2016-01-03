@@ -45,21 +45,60 @@
         android:id="@+id/mProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_gravity="center_horizontal" />
-
-    <Button
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"> <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="更新进度条"
         android:id="@+id/mProgressBtn" />
-    <Button
-        android:id="@+id/gestureBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="测试Gesture"/>
+        <Button
+            android:id="@+id/gestureBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="测试Gesture"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试绘制手势"
+            android:id="@+id/add_gesture_btn" /></LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/start_service_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textAllCaps="false"
+            android:text="启动服务"/>
+        <Button
+            android:id="@+id/stop_service_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="停止服务"/>
+        <Button
+            android:id="@+id/bind_service_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="绑定服务"/>
+        <Button
+            android:id="@+id/unbind_service_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="解绑服务"/>
+    </LinearLayout>
     <Button
+        android:id="@+id/status_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试绘制手势"
-        android:id="@+id/add_gesture_btn" />
+        android:textAllCaps="false"
+        android:text="获取服务的状态"/>
 </LinearLayout>
