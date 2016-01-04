@@ -52,6 +52,7 @@ public class MyServive extends Service {
     @Override
     public void onDestroy() {
         Log.d(TAG,"onDestroy()被调用");
+        this.isQuit=true;
         super.onDestroy();
     }
     public class MyBinder extends Binder{

@@ -31,6 +31,12 @@
                 <action android:name="com.mingzi.myapplication.service.Myservice"></action>
             </intent-filter>
         </service>
+        <service android:name=".aidl.MyAidlService">
+            <intent-filter>
+                <action android:name="com.mingzi.MyAidlService"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
