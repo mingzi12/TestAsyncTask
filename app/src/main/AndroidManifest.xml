@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mingzi.myapplication">
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
         android:allowBackup="true"
@@ -25,18 +26,30 @@
         <activity
             android:name=".gesture.AddGestureActivity"
             android:label="@string/title_activity_add_gesture"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <service android:name=".service.MyServive">
             <intent-filter>
-                <action android:name="com.mingzi.myapplication.service.Myservice"></action>
+                <action android:name="com.mingzi.myapplication.service.Myservice" />
             </intent-filter>
         </service>
         <service android:name=".aidl.MyAidlService">
             <intent-filter>
-                <action android:name="com.mingzi.MyAidlService"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
+                <action android:name="com.mingzi.MyAidlService" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
+
+
+        <activity
+            android:name=".broadcast.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".broadcast.UserActivity"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

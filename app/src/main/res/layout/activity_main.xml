@@ -95,10 +95,22 @@
             android:textAllCaps="false"
             android:text="解绑服务"/>
     </LinearLayout>
-    <Button
-        android:id="@+id/status_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text="获取服务的状态"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/status_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="获取服务的状态"/>
+        <Button
+            android:id="@+id/emu_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="启动登陆"/>
+    </LinearLayout>
+
 </LinearLayout>

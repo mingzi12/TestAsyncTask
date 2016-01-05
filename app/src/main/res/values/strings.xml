@@ -4,4 +4,6 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_gesture">GestureActivity</string>
     <string name="title_activity_add_gesture">AddGestureActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_user">UserActivity</string>
 </resources>

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mingzi.myapplication.asynctask.MyAsyncTask;
+import com.mingzi.myapplication.broadcast.LoginActivity;
 import com.mingzi.myapplication.gesture.AddGestureActivity;
 import com.mingzi.myapplication.gesture.GestureActivity;
 import com.mingzi.myapplication.service.MyServive;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         initServiceBtn();
         initBindServiceBtn();
+        initLoginBtn();
         mTextView = (TextView) findViewById(R.id.mtextview);
         mText = (TextView) findViewById(R.id.mtextview_1);
         mProgressBar = (ProgressBar) findViewById(R.id.mProgressBar);
@@ -148,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 startService(mServiceIntent);
+                sendBroadcast(new Intent("com.mingzi.MyBroadcast"));
             }
         });
         stopBtn.setOnClickListener(new View.OnClickListener() {
@@ -184,5 +187,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
+    }
+    public void initLoginBtn(){
+        Button mLoginBtn = (Button) findViewById(R.id.emu_login);
+        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
     }
 }
