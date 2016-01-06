@@ -2,6 +2,7 @@ package com.mingzi.myapplication;
 
 import android.content.ComponentName;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -207,6 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 getMsgs();
+                insertMsg();
             }
         });
     }
@@ -228,5 +230,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println("======================");
         }
         cursor.close();
+    }
+    private void insertMsg(){
+        ContentResolver mMsgResolver = getContentResolver();
+        Uri mContactUri = Uri.parse("content://sms/");
+        ContentValues mContentValues = new ContentValues();
+        mContentValues.put("address","15676389765");
+        mContentValues.put("type",1);
+        mContentValues.put("date",System.currentTimeMillis());
+        mContentValues.put("body","成功插入短信");
+        mMsgResolver.insert(mContactUri,mContentValues);
     }
 }
