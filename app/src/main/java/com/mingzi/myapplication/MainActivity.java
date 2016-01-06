@@ -1,9 +1,12 @@
 package com.mingzi.myapplication;
 
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initServiceBtn();
         initBindServiceBtn();
         initLoginBtn();
+        initQueryContactBtn();
         mTextView = (TextView) findViewById(R.id.mtextview);
         mText = (TextView) findViewById(R.id.mtextview_1);
         mProgressBar = (ProgressBar) findViewById(R.id.mProgressBar);
@@ -196,5 +200,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
             }
         });
+    }
+    private void initQueryContactBtn(){
+        Button mContactBtn = (Button) findViewById(R.id.queerycontactBtn);
+        mContactBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getMsgs();
+            }
+        });
+    }
+    private void getMsgs(){
+        Uri uri = Uri.parse("content://sms/");
+        ContentResolver resolver = getContentResolver();
+        //获取的是哪些列的信息
+        Cursor cursor = resolver.query(uri, new String[]{"address","date","type","body"}, null, null, null);
+        while(cursor.moveToNext())
+        {
+            String address = cursor.getString(0);
+            String date = cursor.getString(1);
+            String type = cursor.getString(2);
+            String body = cursor.getString(3);
+            System.out.println("地址:" + address);
+            System.out.println("时间:" + date);
+            System.out.println("类型:" + type);
+            System.out.println("内容:" + body);
+            System.out.println("======================");
+        }
+        cursor.close();
     }
 }

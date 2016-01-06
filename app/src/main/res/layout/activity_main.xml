@@ -111,6 +111,12 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:text="启动登陆"/>
+        <Button
+            android:id="@+id/queerycontactBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="查询短信"/>
     </LinearLayout>
 
 </LinearLayout>
