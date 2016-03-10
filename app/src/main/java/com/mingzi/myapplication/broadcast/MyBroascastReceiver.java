@@ -18,7 +18,7 @@ public class MyBroascastReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
         AlertDialog.Builder mAlertBuilder = new AlertDialog.Builder(context);
         mAlertBuilder.setTitle("Warmming!");
-        mAlertBuilder.setMessage("Your account is logined in another palce!");
+        mAlertBuilder.setMessage("Your account is logined in another place!");
         mAlertBuilder.setCancelable(false);
         mAlertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

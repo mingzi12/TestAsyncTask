@@ -16,7 +16,6 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -34,7 +33,7 @@
                 <action android:name="com.mingzi.myapplication.service.Myservice" />
             </intent-filter>
         </service>
-        <service android:name=".aidl.MyAidlService">
+        <service android:name=".aidlservice.MyAidlService">
             <intent-filter>
                 <action android:name="com.mingzi.MyAidlService" />
 
@@ -50,7 +49,9 @@
         <activity
             android:name=".broadcast.UserActivity"
             android:label="@string/title_activity_user"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
     </application>
 
 </manifest>

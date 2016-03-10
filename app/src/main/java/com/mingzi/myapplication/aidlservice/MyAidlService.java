@@ -1,4 +1,4 @@
-package com.mingzi.myapplication.aidl;
+package com.mingzi.myapplication.aidlservice;
 
 import android.app.Service;
 import android.content.Intent;
